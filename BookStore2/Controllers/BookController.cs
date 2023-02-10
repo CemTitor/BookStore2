@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using BookStore2.DbOperations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore2.Controllers;
@@ -8,39 +9,38 @@ namespace BookStore2.Controllers;
 //Resource name: Book
 public class BookController : ControllerBase
 {
-    private static List<Book> BookList = new List<Book>(){
 
-        new Book{
-            Id =1,
-            Title="The Fountainhead",
-            GenreId=1,
-            PageCount=500,
-            PublishDate=DateTime.Now.AddYears(-10),
-        },
-        new Book{
-            Id =2,
-            Title="Herland",
-            GenreId=2,
-            PageCount=250,
-            PublishDate=DateTime.Now.AddYears(-10),
-        },
-        new Book{
-            Id =3,
-            Title="Dune",
-            GenreId=2,
-            PageCount=600,
-            PublishDate=DateTime.Now.AddYears(-10),
-        }
+    private readonly BookStoreDbContext _context;
 
-    };
-
-    private readonly ILogger<BookController> _logger;
-
-    // The constructor is used to inject dependencies( like ILogger<BookController>) into the controller
-    public BookController(ILogger<BookController> logger)
+    public BookController(BookStoreDbContext context)
     {
-        _logger = logger;
+        _context = context;
     }
+  
+    // private static List<Book> BookList = new List<Book>(){
+    //     new Book{
+    //         Id =1,
+    //         Title="The Fountainhead",
+    //         GenreId=1,
+    //         PageCount=500,
+    //         PublishDate=DateTime.Now.AddYears(-10),
+    //     },
+    //     new Book{
+    //         Id =2,
+    //         Title="Herland",
+    //         GenreId=2,
+    //         PageCount=250,
+    //         PublishDate=DateTime.Now.AddYears(-10),
+    //     },
+    //     new Book{
+    //         Id =3,
+    //         Title="Dune",
+    //         GenreId=2,
+    //         PageCount=600,
+    //         PublishDate=DateTime.Now.AddYears(-10),
+    //     }
+
+    // };
 
     // <summary>
     // Get all books
@@ -49,7 +49,7 @@ public class BookController : ControllerBase
     [HttpGet]
     public IActionResult GetBooks()
     {
-        var bookList = BookList.OrderBy(x => x.Id).ToList<Book>();
+        var bookList = _context.Books.OrderBy(x => x.Id).ToList<Book>();
         if (bookList == null)
         {
             return NotFound();
@@ -68,7 +68,7 @@ public class BookController : ControllerBase
         {
             return BadRequest("Id must be greater than 0");
         }
-        var book = BookList.SingleOrDefault(x => x.Id == id);
+        var book = _context.Books.SingleOrDefault(x => x.Id == id);
         if (book == null)
         {
             return NotFound();
@@ -89,13 +89,14 @@ public class BookController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var book = BookList.SingleOrDefault(x => x.Title == newBook.Title);
+        var book = _context.Books.SingleOrDefault(x => x.Title == newBook.Title);
         if (book != null)
         {
             return BadRequest("A book with the same title already exists.");
         }
 
-        BookList.Add(newBook);
+        _context.Books.Add(newBook);
+        _context.SaveChanges();
         return Ok();
     }
 
@@ -111,7 +112,7 @@ public class BookController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var book = BookList.SingleOrDefault(x => x.Id == id);
+        var book = _context.Books.SingleOrDefault(x => x.Id == id);
         if (book is null)
         {
             return BadRequest();
@@ -121,6 +122,8 @@ public class BookController : ControllerBase
         book.GenreId = updatedBook.GenreId != default ? updatedBook.GenreId : book.GenreId;
         book.PageCount = updatedBook.PageCount != default ? updatedBook.PageCount : book.PageCount;
         book.PublishDate = updatedBook.PublishDate != default ? updatedBook.PublishDate : book.PublishDate;
+
+        _context.SaveChanges();
         return Ok();
     }
 
@@ -135,13 +138,15 @@ public class BookController : ControllerBase
         {
             return BadRequest("Id must be greater than 0");
         }
-        var book = BookList.SingleOrDefault(x => x.Id == id);
+        var book = _context.Books.SingleOrDefault(x => x.Id == id);
         if (book == null)
         {
             return NotFound();
         }
 
-        BookList.Remove(book);
+        _context.Books.Remove(book);
+
+        _context.SaveChanges();
         return Ok();
     }
 
@@ -156,13 +161,15 @@ public class BookController : ControllerBase
         {
             return BadRequest("Id must be greater than 0");
         }
-        var book = BookList.SingleOrDefault(x => x.Id == id);
+        var book = _context.Books.SingleOrDefault(x => x.Id == id);
         if (book == null)
         {
             return NotFound();
         }
 
-        BookList.Remove(book);
+        _context.Books.Remove(book);
+
+        _context.SaveChanges();
         return Ok();
     }
 
@@ -173,7 +180,7 @@ public class BookController : ControllerBase
     [HttpGet("list")]
     public IActionResult GetBooksByName([FromQuery] string bookName)
     {
-        var bookList = BookList.Where(x => x.Title.ToUpper().Contains(bookName.ToUpper())).OrderBy(x => x.Title).ToList<Book>();
+        var bookList = _context.Books.Where(x => x.Title.ToUpper().Contains(bookName.ToUpper())).OrderBy(x => x.Title).ToList<Book>();
         if (bookList == null)
         {
             return NotFound();
@@ -188,7 +195,7 @@ public class BookController : ControllerBase
     [HttpGet("sorting_desc")]
     public IActionResult GetBooksDesc()
     {
-        var bookList = BookList.ToList<Book>();
+        var bookList = _context.Books.ToList<Book>();
         if (bookList == null)
         {
             return NotFound();
@@ -205,7 +212,7 @@ public class BookController : ControllerBase
     [HttpGet("sorting_asc")]
     public IActionResult GetBooksAsc()
     {
-        var bookList = BookList.ToList<Book>();
+        var bookList = _context.Books.ToList<Book>();
         if (bookList == null)
         {
             return NotFound();
