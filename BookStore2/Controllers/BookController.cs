@@ -16,7 +16,7 @@ public class BookController : ControllerBase
     {
         _context = context;
     }
-  
+
     // private static List<Book> BookList = new List<Book>(){
     //     new Book{
     //         Id =1,
@@ -49,7 +49,7 @@ public class BookController : ControllerBase
     [HttpGet]
     public IActionResult GetBooks()
     {
-        GetbooksQuery query = new GetbooksQuery(_context);  
+        GetbooksQuery query = new GetbooksQuery(_context);
         var result = query.Handle();
         if (result == null)
         {
@@ -70,11 +70,6 @@ public class BookController : ControllerBase
             return BadRequest("Id must be greater than 0");
         }
         var book = _context.Books.SingleOrDefault(x => x.Id == id);
-        if (book == null)
-        {
-            return NotFound();
-        }
-
         return Ok(book);
     }
 
@@ -83,22 +78,25 @@ public class BookController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost("FromBody")]
-    public IActionResult AddBook([FromBody] Book newBook)
+    public IActionResult AddBook([FromBody] CreateBookModel newBook)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        CreateBookCommand command = new CreateBookCommand(_context);
 
-        var book = _context.Books.SingleOrDefault(x => x.Title == newBook.Title);
-        if (book != null)
+        try
         {
-            return BadRequest("A book with the same title already exists.");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            command.NewBook = newBook;
+            command.Handle();
         }
-
-        _context.Books.Add(newBook);
-        _context.SaveChanges();
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
         return Ok();
+
     }
 
     /// <summary>
