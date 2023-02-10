@@ -70,7 +70,7 @@ public class BookController : ControllerBase
         {
             GetBookDetailQuery query = new GetBookDetailQuery(_context);
             query.BookId = id;
-            result =query.Handle();
+            result = query.Handle();
 
         }
         catch (Exception ex)
@@ -112,25 +112,26 @@ public class BookController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateBook(int id, [FromBody] Book updatedBook)
+    public IActionResult UpdateBook(int id, [FromBody] UpdateBookModel updatedBook)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return BadRequest(ModelState);
-        }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        var book = _context.Books.SingleOrDefault(x => x.Id == id);
-        if (book is null)
+            UpdateBookCommand command = new UpdateBookCommand(_context);
+            command.BookId = id;
+            command.Model = updatedBook;
+            
+            command.Handle();
+        }
+        catch (Exception ex)
         {
-            return BadRequest();
+            return BadRequest(ex.Message);
+
         }
-
-        book.Title = updatedBook.Title != default ? updatedBook.Title : book.Title;
-        book.GenreId = updatedBook.GenreId != default ? updatedBook.GenreId : book.GenreId;
-        book.PageCount = updatedBook.PageCount != default ? updatedBook.PageCount : book.PageCount;
-        book.PublishDate = updatedBook.PublishDate != default ? updatedBook.PublishDate : book.PublishDate;
-
-        _context.SaveChanges();
         return Ok();
     }
 
