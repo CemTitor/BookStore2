@@ -49,12 +49,13 @@ public class BookController : ControllerBase
     [HttpGet]
     public IActionResult GetBooks()
     {
-        var bookList = _context.Books.OrderBy(x => x.Id).ToList<Book>();
-        if (bookList == null)
+        GetbooksQuery query = new GetbooksQuery(_context);  
+        var result = query.Handle();
+        if (result == null)
         {
             return NotFound();
         }
-        return Ok(bookList);
+        return Ok(result);
     }
 
     /// <summary>
