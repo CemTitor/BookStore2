@@ -16,6 +16,11 @@ public class GetbooksQuery
     {
         var books = _dbContext.Books.OrderBy(book => book.Id).ToList<Book>();
         List<BooksViewModel> booksViewModel = new List<BooksViewModel>();
+
+        if (books.Count == 0)
+        {
+            throw new InvalidOperationException("There is no book in the database!");
+        }
         foreach (var book in books)
         {
             booksViewModel.Add(new BooksViewModel
