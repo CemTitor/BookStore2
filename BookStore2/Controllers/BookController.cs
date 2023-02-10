@@ -65,12 +65,20 @@ public class BookController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetBookById([FromRoute] int id)
     {
-        if (id <= 0)
+        BookDetailViewModel result = null;
+        try
         {
-            return BadRequest("Id must be greater than 0");
+            GetBookDetailQuery query = new GetBookDetailQuery(_context);
+            query.BookId = id;
+            result =query.Handle();
+
         }
-        var book = _context.Books.SingleOrDefault(x => x.Id == id);
-        return Ok(book);
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+        return Ok(result);
     }
 
     /// <summary>
