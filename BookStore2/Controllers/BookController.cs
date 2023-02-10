@@ -142,19 +142,15 @@ public class BookController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteBook(int id)
     {
-        if (id <= 0)
-        {
-            return BadRequest("Id must be greater than 0");
+        try{
+            DeleteBookCommand command = new DeleteBookCommand(_context);
+            command.BookId = id;
+            command.Handle();
         }
-        var book = _context.Books.SingleOrDefault(x => x.Id == id);
-        if (book == null)
+        catch (Exception ex)
         {
-            return NotFound();
+            return BadRequest(ex.Message);
         }
-
-        _context.Books.Remove(book);
-
-        _context.SaveChanges();
         return Ok();
     }
 
