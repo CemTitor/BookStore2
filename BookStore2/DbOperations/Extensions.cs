@@ -2,7 +2,7 @@ using BookStore2.DbOperations;
 
 public static class Extensions
 {
-    public static void CreateDatabase(this IHost host)
+    public static void InitializeDatabase(this IHost host)
     {
         {
     

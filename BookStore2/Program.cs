@@ -1,13 +1,21 @@
+using BookStore2.DbOperations;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Inject the database context into the application
+builder.Services.AddDbContext<BookStoreDbContext>(options =>options.UseInMemoryDatabase(databaseName: "BookStoreDB"));
 
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+/// We are calling the InitializeDatabase method
+app.InitializeDatabase();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
