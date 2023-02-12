@@ -1,13 +1,16 @@
+using AutoMapper;
 using BookStore2.Common;
 using BookStore2.DbOperations;
 
 public class GetBookDetailQuery
 {
     private readonly BookStoreDbContext _dbContext;
+    private readonly IMapper _mapper;
     public int BookId { get; set; }
-    public GetBookDetailQuery(BookStoreDbContext dbContext)
+    public GetBookDetailQuery(BookStoreDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
     public BookDetailViewModel Handle()
     {
@@ -17,11 +20,8 @@ public class GetBookDetailQuery
         {
             throw new InvalidOperationException("Book not found!");
         }
-        BookDetailViewModel vm = new BookDetailViewModel();
-        vm.Title = book.Title;
-        vm.PageCount = book.PageCount;
-        vm.PublishDate = book.PublishDate.Date.ToString("dd/MM/yyyy");
-        vm.Genre = ((GenreEnum)book.GenreId).ToString();
+        BookDetailViewModel vm = _mapper.Map<BookDetailViewModel>(book);
+        
         return vm;
     }
 }

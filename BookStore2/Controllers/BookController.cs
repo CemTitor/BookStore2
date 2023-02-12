@@ -48,7 +48,7 @@ public class BookController : ControllerBase
         BookDetailViewModel result = null;
         try
         {
-            GetBookDetailQuery query = new GetBookDetailQuery(_context);
+            GetBookDetailQuery query = new GetBookDetailQuery(_context, _mapper);
             query.BookId = id;
             result = query.Handle();
 
@@ -68,7 +68,7 @@ public class BookController : ControllerBase
     [HttpPost("FromBody")]
     public IActionResult AddBook([FromBody] CreateBookModel newBook)
     {
-        CreateBookCommand command = new CreateBookCommand(_context);
+        CreateBookCommand command = new CreateBookCommand(_context, _mapper);
 
         try
         {

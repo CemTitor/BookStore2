@@ -7,7 +7,9 @@ using BookStore2.Common;
         public class MappingProfile : Profile
         {
             public MappingProfile(){
+                /// CreateBookModel mapping to Book object
                 CreateMap<CreateBookModel, Book>();
+                /// Book mapping to BookDetailViewModel object and GenreId mapping to Genre
                 CreateMap<Book, BookDetailViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => ((GenreEnum)src.GenreId).ToString()));
             }
         }
