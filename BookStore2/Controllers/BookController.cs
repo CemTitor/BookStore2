@@ -141,29 +141,6 @@ public class BookController : ControllerBase
     }
 
     /// <summary>
-    /// Delete a book from query
-    /// </summary>
-    /// <returns></returns>
-    [HttpDelete("FromQuery")]
-    public IActionResult DeleteBookFromQuery([FromQuery] int id)
-    {
-        if (id <= 0)
-        {
-            return BadRequest("Id must be greater than 0");
-        }
-        var book = _context.Books.SingleOrDefault(x => x.Id == id);
-        if (book == null)
-        {
-            return NotFound();
-        }
-
-        _context.Books.Remove(book);
-
-        _context.SaveChanges();
-        return Ok();
-    }
-
-    /// <summary>
     /// Get list of books by name
     /// </summary>
     /// <returns></returns>
