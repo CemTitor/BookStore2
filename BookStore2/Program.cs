@@ -1,3 +1,4 @@
+using System.Reflection;
 using BookStore2.DbOperations;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Automapper is a library that is used to map objects to each other.
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
 var app = builder.Build();
 

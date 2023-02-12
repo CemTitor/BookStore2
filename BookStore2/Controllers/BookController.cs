@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper;
 using BookStore2.DbOperations;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,35 +13,14 @@ public class BookController : ControllerBase
 
     private readonly BookStoreDbContext _context;
 
-    public BookController(BookStoreDbContext context)
+    private readonly IMapper _mapper;
+
+    public BookController(BookStoreDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
+
     }
-
-    // private static List<Book> BookList = new List<Book>(){
-    //     new Book{
-    //         Id =1,
-    //         Title="The Fountainhead",
-    //         GenreId=1,
-    //         PageCount=500,
-    //         PublishDate=DateTime.Now.AddYears(-10),
-    //     },
-    //     new Book{
-    //         Id =2,
-    //         Title="Herland",
-    //         GenreId=2,
-    //         PageCount=250,
-    //         PublishDate=DateTime.Now.AddYears(-10),
-    //     },
-    //     new Book{
-    //         Id =3,
-    //         Title="Dune",
-    //         GenreId=2,
-    //         PageCount=600,
-    //         PublishDate=DateTime.Now.AddYears(-10),
-    //     }
-
-    // };
 
     // <summary>
     // Get all books
@@ -124,7 +104,7 @@ public class BookController : ControllerBase
             UpdateBookCommand command = new UpdateBookCommand(_context);
             command.BookId = id;
             command.Model = updatedBook;
-            
+
             command.Handle();
         }
         catch (Exception ex)
@@ -142,7 +122,8 @@ public class BookController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteBook(int id)
     {
-        try{
+        try
+        {
             DeleteBookCommand command = new DeleteBookCommand(_context);
             command.BookId = id;
             command.Handle();
