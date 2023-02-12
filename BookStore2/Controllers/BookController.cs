@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using AutoMapper;
+using BookStore2.BookOperations.CreateBooks;
 using BookStore2.DbOperations;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore2.Controllers;
@@ -69,15 +72,13 @@ public class BookController : ControllerBase
     public IActionResult AddBook([FromBody] CreateBookModel newBook)
     {
         CreateBookCommand command = new CreateBookCommand(_context, _mapper);
-
         try
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            command.NewBook = newBook;
+            command.Model = newBook;
+            CreateBookCommandValidator validator = new CreateBookCommandValidator();
+            validator.ValidateAndThrow(command);
             command.Handle();
+            
         }
         catch (Exception ex)
         {

@@ -4,8 +4,7 @@ using BookStore2.DbOperations;
 
 public class CreateBookCommand
 {
-
-    public CreateBookModel NewBook { get; set; }
+    public CreateBookModel Model { get; set; }
     private readonly BookStoreDbContext _dbContext;
     private readonly IMapper _mapper;
 
@@ -17,12 +16,12 @@ public class CreateBookCommand
     }
     public void Handle()
     {
-        var book = _dbContext.Books.SingleOrDefault(x => x.Title == NewBook.Title);
+        var book = _dbContext.Books.SingleOrDefault(x => x.Title == Model.Title);
         if (book is not null)
         {
             throw new InvalidOperationException("Book already exists!");
         }
-        book = _mapper.Map<Book>(NewBook);
+        book = _mapper.Map<Book>(Model);
 
         _dbContext.Books.Add(book);
         _dbContext.SaveChanges();
