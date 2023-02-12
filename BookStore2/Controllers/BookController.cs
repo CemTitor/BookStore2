@@ -29,7 +29,7 @@ public class BookController : ControllerBase
     [HttpGet]
     public IActionResult GetBooks()
     {
-        GetbooksQuery query = new GetbooksQuery(_context);
+        GetbooksQuery query = new GetbooksQuery(_context, _mapper);
         var result = query.Handle();
         if (result == null)
         {
