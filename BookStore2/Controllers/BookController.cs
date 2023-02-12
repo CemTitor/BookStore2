@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using AutoMapper;
 using BookStore2.BookOperations.CreateBooks;
+using BookStore2.BookOperations.DeleteBook;
+using BookStore2.BookOperations.GetBookDetail;
+using BookStore2.BookOperations.UpdateBook;
 using BookStore2.DbOperations;
 using FluentValidation;
 using FluentValidation.Results;
@@ -53,6 +56,8 @@ public class BookController : ControllerBase
         {
             GetBookDetailQuery query = new GetBookDetailQuery(_context, _mapper);
             query.BookId = id;
+            GetBookDetailQueryValidator validator = new GetBookDetailQueryValidator();
+            validator.ValidateAndThrow(query);
             result = query.Handle();
 
         }
@@ -97,14 +102,11 @@ public class BookController : ControllerBase
     {
         try
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             UpdateBookCommand command = new UpdateBookCommand(_context);
             command.BookId = id;
             command.Model = updatedBook;
+            UpdateBookCommandValidator validator = new UpdateBookCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();
         }
@@ -127,6 +129,8 @@ public class BookController : ControllerBase
         {
             DeleteBookCommand command = new DeleteBookCommand(_context);
             command.BookId = id;
+            DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
+            validator.ValidateAndThrow(command);
             command.Handle();
         }
         catch (Exception ex)
