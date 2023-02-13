@@ -1,6 +1,7 @@
 using System.Reflection;
 using BookStore2.DbOperations;
 using BookStore2.Middlewares;
+using BookStore2.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,9 @@ builder.Services.AddSwaggerGen();
 
 // Automapper is a library that is used to map objects to each other.
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+// Add the dependency injection for the logger service 
+builder.Services.AddSingleton<ILoggerService, ConsoleLogger>();
 
 
 var app = builder.Build();
