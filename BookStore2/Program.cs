@@ -21,7 +21,6 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // Add the dependency injection for the logger service 
 builder.Services.AddSingleton<ILoggerService, ConsoleLogger>();
 
-
 var app = builder.Build();
 
 /// We are calling the InitializeDatabase method
@@ -38,6 +37,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+/// We are using the global exception middleware
 app.UseCustomExceptionMiddleware();
 
 app.MapControllers();
