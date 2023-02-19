@@ -23,7 +23,7 @@ builder.Services.AddSingleton<ILoggerService, ConsoleLogger>();
 
 var app = builder.Build();
 
-/// We are calling the InitializeDatabase method
+/// We are calling the InitializeDatabase extension method
 app.InitializeDatabase();
 
 // Configure the HTTP request pipeline.

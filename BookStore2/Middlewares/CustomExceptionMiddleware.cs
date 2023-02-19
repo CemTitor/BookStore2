@@ -15,6 +15,9 @@ namespace BookStore2.Middlewares
             _loggerService = loggerService;
         }
 
+        /// <summary>
+        /// This method is called by the ASP.NET Core pipeline to handle the request.
+        /// </summary>
         public async Task Invoke(HttpContext context)
         {
             var watch = Stopwatch.StartNew();
@@ -36,6 +39,9 @@ namespace BookStore2.Middlewares
             }
         }
 
+        /// <summary>
+        /// This method is called by the Invoke method to handle the exception. 
+        /// </summary>
         private Task HandleExceptionAsync(HttpContext context, Exception ex, Stopwatch watch)
         {
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
@@ -53,6 +59,7 @@ namespace BookStore2.Middlewares
     {
         public static IApplicationBuilder UseCustomExceptionMiddleware(this IApplicationBuilder builder)
         {
+            /// We are using the global exception middleware
             return builder.UseMiddleware<CustomExceptionMiddleware>();
         }
     }
