@@ -4,11 +4,11 @@ using BookStore2.Entities;
 
 namespace BookStore2.Application.GenreOperations.Commands.CreaateGenre
 {
-    public class CreaateGenreCommand
+    public class CreateGenreCommand
     {
         public CreateGenreModel Model { get; set; }
         private readonly BookStoreDbContext _dbContext;
-        public CreaateGenreCommand(BookStoreDbContext dbContext)
+        public CreateGenreCommand(BookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }

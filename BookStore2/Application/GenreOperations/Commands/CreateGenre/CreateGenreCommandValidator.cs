@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace BookStore2.Application.GenreOperations.Commands.CreaateGenre
 {
-    public class CreaateGenreCommandValidator : AbstractValidator<CreaateGenreCommand>
+    public class CreateGenreCommandValidator : AbstractValidator<CreateGenreCommand>
     {
-        public CreaateGenreCommandValidator()
+        public CreateGenreCommandValidator()
         {
             RuleFor(command => command.Model.Name).NotEmpty().MinimumLength(4);
         }
