@@ -6,7 +6,7 @@ namespace BookStore2.Application.GenreOperations.Queries.GetGenreDetail
     {
         public GetGenreDetailQueryValidator()
         {
-            RuleFor(command => command.GenreID).GreaterThan(0);
+            RuleFor(query => query.GenreID).GreaterThan(0);
         }
     }
 }
