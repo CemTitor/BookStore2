@@ -1,6 +1,5 @@
 using AutoMapper;
 using BookStore2.DbOperations;
-using BookStore2.Entities;
 
 namespace BookStore2.Application.GenreOperations.Queries.GetGenreDetail
 {
@@ -14,14 +13,13 @@ namespace BookStore2.Application.GenreOperations.Queries.GetGenreDetail
             _context = context;
             _mapper = mapper;
         }
-        public List<GenreDetailViewModel> Handle()
+        public GenreDetailViewModel Handle()
         {
             var _genre = _context.Genres.SingleOrDefault(x => x.isActive == true && x.Id == GenreID);
             if(_genre is null)
                 throw new InvalidOperationException("Genre not found!");
                 
-            List<GenreDetailViewModel> vm = _mapper.Map<List<GenreDetailViewModel>>(_genre);
-            return vm;
+            return _mapper.Map<GenreDetailViewModel>(_genre);
         }
         public class GenreDetailViewModel
         {

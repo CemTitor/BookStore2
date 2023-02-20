@@ -1,5 +1,4 @@
 using AutoMapper;
-using BookStore2.Common;
 using BookStore2.DbOperations;
 
 namespace BookStore2.Application.BookOperations.Queries.GetBookDetail
