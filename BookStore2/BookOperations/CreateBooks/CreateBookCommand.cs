@@ -7,8 +7,6 @@ public class CreateBookCommand
     public CreateBookModel Model { get; set; }
     private readonly BookStoreDbContext _dbContext;
     private readonly IMapper _mapper;
-
-
     public CreateBookCommand(BookStoreDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
@@ -26,8 +24,6 @@ public class CreateBookCommand
         _dbContext.Books.Add(book);
         _dbContext.SaveChanges();
     }
-
-
 }
 
 public class CreateBookModel

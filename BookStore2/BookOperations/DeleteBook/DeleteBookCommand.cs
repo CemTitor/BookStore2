@@ -1,7 +1,6 @@
 using BookStore2;
 using BookStore2.DbOperations;
 
-
 public class DeleteBookCommand
 {
     private readonly BookStoreDbContext _dbContext;

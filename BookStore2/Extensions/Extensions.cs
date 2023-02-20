@@ -5,7 +5,6 @@ public static class Extensions
     public static void InitializeDatabase(this IHost host)
     {
         {
-    
             using (var scope = host.Services.CreateScope())
             {
                 /// We are getting the service provider from the scope
