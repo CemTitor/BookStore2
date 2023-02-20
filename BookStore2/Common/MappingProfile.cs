@@ -16,9 +16,9 @@ namespace BookStoreWebApi.Common
             /// CreateBookModel mapping to Book object
             CreateMap<CreateBookModel, Book>();
             /// Book mapping to BookDetailViewModel object and GenreId mapping to Genre
-            CreateMap<Book, BookDetailViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => ((GenreEnum)src.GenreId).ToString()));
+            CreateMap<Book, BookDetailViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name));
             /// Book mapping to BooksViewModel object and GenreId mapping to Genre
-            CreateMap<Book, BooksViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => ((GenreEnum)src.GenreId).ToString()));
+            CreateMap<Book, BooksViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name));
             /// Genre mapping to GenresViewModel object
             CreateMap<Genre, GenresViewModel>();
             CreateMap<Genre, GenreDetailViewModel>();
