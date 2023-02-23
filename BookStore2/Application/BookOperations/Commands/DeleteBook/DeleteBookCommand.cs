@@ -10,6 +10,11 @@ namespace BookStore2.Application.BookOperations.Commands.DeleteBook
         {
             _dbContext = dbContext;
         }
+
+        public DeleteBookCommand()
+        {
+        }
+
         public void Handle()
         {
             var book = _dbContext.Books.SingleOrDefault(x => x.Id == BookId);

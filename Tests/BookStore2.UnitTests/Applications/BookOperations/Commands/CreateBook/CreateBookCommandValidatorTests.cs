@@ -79,7 +79,6 @@ namespace Application.BookOperations.Commands.CreateBook
             // assert
             result.Errors.Count.Should().Be(0);
         }
-
         [Fact]
         public void WhenValidInputsAreGiven_Book_ShouldBeCreated()
         {
@@ -101,7 +100,6 @@ namespace Application.BookOperations.Commands.CreateBook
             book.PageCount.Should().Be(command.Model.PageCount);
             book.PublishDate.Should().Be(command.Model.PublishDate);
             book.GenreId.Should().Be(command.Model.GenreId);
-        }
-                                                                    
+        }                                                      
     }
 }

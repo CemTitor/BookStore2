@@ -30,18 +30,14 @@ namespace Application.BookOperations.Commands.CreateBook
             _context.Books.Add(book);
             _context.SaveChanges();
 
-            CreateBookCommand command = new CreateBookCommand(_context, _mapper);
-            command.Model = new CreateBookModel()
+            CreateBookCommand bookModel = new CreateBookCommand(_context, _mapper);
+            bookModel.Model = new CreateBookModel()
             {
-                Title = "Test Book",
-                PageCount = 100,
-                PublishDate = DateTime.Now.Date.AddYears(-1),
-                GenreId = 1
+                Title = book.Title,
             };
-            // act
-            FluentActions.Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>().And.Message.Should().Be("Book already exists!");
-            // assert
-        }
+            // act and assert
+            FluentActions.Invoking(() => bookModel.Handle()).Should().Throw<InvalidOperationException>().And.Message.Should().Be("Book already exists!");
 
+        }
     }
 }
