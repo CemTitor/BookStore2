@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 // Inject the database context into the application
 builder.Services.AddDbContext<BookStoreDbContext>(options =>options.UseInMemoryDatabase(databaseName: "BookStoreDB"));
+/// We are adding the dependency injection for the BookStoreDbContext
+builder.Services.AddScoped<IBookStoreDbContext>(provider => provider.GetService<BookStoreDbContext>());
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

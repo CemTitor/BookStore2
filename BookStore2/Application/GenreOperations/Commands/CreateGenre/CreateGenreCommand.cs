@@ -7,8 +7,8 @@ namespace BookStore2.Application.GenreOperations.Commands.CreaateGenre
     public class CreateGenreCommand
     {
         public CreateGenreModel Model { get; set; }
-        private readonly BookStoreDbContext _dbContext;
-        public CreateGenreCommand(BookStoreDbContext dbContext)
+        private readonly IBookStoreDbContext _dbContext;
+        public CreateGenreCommand(IBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }

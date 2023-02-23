@@ -13,52 +13,7 @@ namespace BookStore2.DbOperations
                     return;
                 }
 
-                context.Genres.AddRange(
-                      new Genre
-                      {
-                          //   Id = 1,
-                          Name = "Fantasy",
-                      },
-                      new Genre
-                      {
-                          //   Id = 2,
-                          Name = "Science Fiction",
-                      },
-                      new Genre
-                      {
-                          //   Id = 3,
-                          Name = "Romance",
-                      },
-                      new Genre
-                      {
-                          //   Id = 4,
-                          Name = "Horror",
-                      }
-                );
-                context.Authors.AddRange(
-                      new Author
-                      {
-                          //   Id = 1,
-                          Name = "Ayn",
-                          Surname = "Rand",
-                          BirthDate = DateTime.Now.AddYears(-50),
-                      },
-                      new Author
-                      {
-                          //   Id = 2,
-                          Name = "Charlotte",
-                          Surname = "Perkins Gilman",
-                          BirthDate = DateTime.Now.AddYears(-50),
-                      },
-                      new Author
-                      {
-                          //   Id = 3,
-                          Name = "Frank",
-                          Surname = "Herbert",
-                          BirthDate = DateTime.Now.AddYears(-50),
-                      }
-                );
-                context.Books.AddRange(
+                 context.Books.AddRange(
                       new Book
                       {
                           //   Id = 1,
@@ -90,6 +45,31 @@ namespace BookStore2.DbOperations
 
                       }
                 );
+
+                context.Authors.AddRange(
+                      new Author
+                      {
+                          //   Id = 1,
+                          Name = "Ayn",
+                          Surname = "Rand",
+                          BirthDate = DateTime.Now.AddYears(-50),
+                      },
+                      new Author
+                      {
+                          //   Id = 2,
+                          Name = "Charlotte",
+                          Surname = "Perkins Gilman",
+                          BirthDate = DateTime.Now.AddYears(-50),
+                      },
+                      new Author
+                      {
+                          //   Id = 3,
+                          Name = "Frank",
+                          Surname = "Herbert",
+                          BirthDate = DateTime.Now.AddYears(-50),
+                      }
+                );
+
                 context.SaveChanges();
             }
         }

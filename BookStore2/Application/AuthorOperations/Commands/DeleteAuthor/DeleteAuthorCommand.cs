@@ -16,7 +16,8 @@ namespace BookStore2.Application.AuthorOperations.Commands.DeleteAuthor
             if (author is null)
             {
                 throw new InvalidOperationException("Author not found!");
-            }else if(_dbContext.Books.Any(x => x.AuthorId == AuthorId))
+            }
+            else if (_dbContext.Books.Any(x => x.AuthorId == AuthorId))
             {
                 throw new InvalidOperationException("Author has books!");
             }
