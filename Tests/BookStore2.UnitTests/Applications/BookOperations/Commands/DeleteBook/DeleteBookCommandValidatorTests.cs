@@ -15,11 +15,11 @@ namespace Application.BookOperations.Commands.DeleteBook
             _context = testFixture.Context;
             _mapper = testFixture.Mapper;
         }
-        [Theory]
-        [InlineData(-999)]
-        [InlineData(0)]
-        [InlineData(-1)]
-        [InlineData(1)]
+        // [Theory]
+        // [InlineData(-999)]
+        // [InlineData(0)]
+        // [InlineData(-1)]
+        // [InlineData(1)]
         // public void WhenLowerThanAndEqualToZeroIdIsGiven_Validator_ShouldBeReturnError(int bookId)
         // {
         //     // Arrange

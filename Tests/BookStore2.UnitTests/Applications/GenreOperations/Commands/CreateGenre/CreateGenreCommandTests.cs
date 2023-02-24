@@ -5,7 +5,7 @@ using FluentAssertions;
 using TestSetup;
 using BookStore2.Application.GenreOperations.Commands.CreaateGenre;
 
-namespace Application.BookOperations.Commands.CreateGenre
+namespace Application.GenreOperations.Commands.CreateGenre
 {
     public class CreateGenreCommandTests : IClassFixture<CommonTestFixture>
     {

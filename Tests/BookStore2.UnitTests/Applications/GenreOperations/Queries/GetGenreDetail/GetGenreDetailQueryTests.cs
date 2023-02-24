@@ -24,7 +24,7 @@ namespace Application.GenreOperations.Queries.GetGenreDetail
         {
             // arrange
             GetGenreDetailQuery command = new GetGenreDetailQuery(_context, _mapper);
-            command.GenreId = id;
+            command.GenreID = id;
             // act
             FluentActions.Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>().And.Message.Should().Be("Genre not found!");
             // assert

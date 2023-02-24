@@ -5,7 +5,7 @@ using BookStore2.DbOperations;
 using BookStore2.Application.GenreOperations.Commands.UpdateGenre;
 using BookStore2.Application.BookOperations.Commands.UpdateBook;
 
-namespace Application.BookOperations.Commands.UpdateBook
+namespace Application.GenreOperations.Commands.UpdateBook
 {
     public class UpdateGenreCommandValidatorTests : IClassFixture<CommonTestFixture>
     {
@@ -57,5 +57,6 @@ namespace Application.BookOperations.Commands.UpdateBook
             result.Errors.Count.Should().Equals(0);
 
 
+        }
     }
 }

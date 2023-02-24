@@ -5,7 +5,7 @@ using BookStore2.DbOperations;
 using FluentAssertions;
 using TestSetup;
 
-namespace Application.BookOperations.Commands.UpdateBook
+namespace Application.GenreOperations.Commands.UpdateGenre
 {
     public class UpdateGenreCommandTests : IClassFixture<CommonTestFixture>
     {

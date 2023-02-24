@@ -4,7 +4,7 @@ using BookStore2.DbOperations;
 using FluentAssertions;
 using TestSetup;
 
-namespace Application.BookOperations.Commands.DeleteGenre
+namespace Application.GenreOperations.Commands.DeleteGenre
 {
     public class DeleteGenreCommandTests : IClassFixture<CommonTestFixture>
     {
@@ -13,7 +13,9 @@ namespace Application.BookOperations.Commands.DeleteGenre
         {
             _context = testFixture.Context;
         }
-        [Fact] // Fact means this is a test method
+        [Theory] // Fact means this is a test method
+        [InlineData(1)]
+        [InlineData(2)]
         public void WhenThereIsNoGenreWithGivenId_InvalidOperationException_ShouldBeReturn(int id)
         {
             // arrange

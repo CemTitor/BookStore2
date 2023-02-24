@@ -4,7 +4,7 @@ using BookStore2.DbOperations;
 using BookStore2.Application.GenreOperations.Commands.CreaateGenre;
 using FluentAssertions;
 
-namespace Application.BookOperations.Commands.CreateGenre
+namespace Application.GenreOperations.Commands.CreateGenre
 {
     public class CreateGenreCommandValidatorTests : IClassFixture<CommonTestFixture>
     {

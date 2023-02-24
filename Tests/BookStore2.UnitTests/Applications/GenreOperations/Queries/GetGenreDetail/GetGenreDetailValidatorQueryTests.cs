@@ -16,12 +16,15 @@ namespace Application.GenreOperations.Queries.GetGenreDetail
             _mapper = testFixture.Mapper;
         }
         [Theory]
-        
-        public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(int genreId, string name)
+        [InlineData(50)]
+        [InlineData(0)]
+        [InlineData(-10)]
+        public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(int genreId)
         {
             // arrange
             GetGenreDetailQuery command = new GetGenreDetailQuery(_context, _mapper);
-            command.GenreId = genreId;
+            command.GenreID = genreId;
+
             // act
             GetGenreDetailQueryValidator validator = new GetGenreDetailQueryValidator();
             var result = validator.Validate(command);
