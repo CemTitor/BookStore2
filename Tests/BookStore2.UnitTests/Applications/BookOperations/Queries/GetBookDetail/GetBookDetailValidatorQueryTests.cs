@@ -6,11 +6,11 @@ using BookStore2.Application.BookOperations.Commands.UpdateBook;
 
 namespace Application.BookOperations.Commands.UpdateBook
 {
-    public class UpdateBookCommandValidatorTests : IClassFixture<CommonTestFixture>
+    public class GetBookDetailValidatorQueryTests : IClassFixture<CommonTestFixture>
     {
         private readonly BookStoreDbContext _context;
         private readonly IMapper _mapper;
-        public UpdateBookCommandValidatorTests(CommonTestFixture testFixture)
+        public GetBookDetailValidatorQueryTests(CommonTestFixture testFixture)
         {
             _context = testFixture.Context;
             _mapper = testFixture.Mapper;
@@ -38,26 +38,7 @@ namespace Application.BookOperations.Commands.UpdateBook
             // assert
             result.Errors.Count.Should().BeGreaterThan(0);
         }
-
-        [Fact]
-        public void WhenValidInputAreGiven_Validator_ShouldNotBeReturnErrors()
-        {
-            // arrange
-            UpdateBookCommand command = new UpdateBookCommand(_context);
-            command.BookId = 1;
-            command.Model = new UpdateBookModel()
-            {
-                Title = "Lord Of The Rings",
-                PageCount = 100,
-                PublishDate = System.DateTime.Now.Date.AddYears(-1),
-                GenreId = 1
-            };
-            // act
-            UpdateBookCommandValidator validator = new UpdateBookCommandValidator();
-            var result = validator.Validate(command);
-            // assert
-            result.Errors.Count.Should().Equals(0);
-        }
+        
 
 
     }

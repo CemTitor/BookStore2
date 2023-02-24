@@ -79,27 +79,6 @@ namespace Application.BookOperations.Commands.CreateBook
             // assert
             result.Errors.Count.Should().Be(0);
         }
-        [Fact]
-        public void WhenValidInputsAreGiven_Book_ShouldBeCreated()
-        {
-            // arrange
-            CreateBookCommand command = new CreateBookCommand(_context, _mapper);
-            command.Model = new CreateBookModel()
-            {
-                Title = "Lord Of The Rings",
-                PageCount = 100,
-                PublishDate = DateTime.Now.Date.AddYears(-10),
-                GenreId = 1
-            };
-            // act
-            FluentActions.Invoking(() => command.Handle()).Invoke(); 
-            // assert
-            var book = _context.Books.SingleOrDefault(x => x.Title == command.Model.Title);
-            book.Should().NotBeNull();
-            book.Title.Should().Be(command.Model.Title);
-            book.PageCount.Should().Be(command.Model.PageCount);
-            book.PublishDate.Should().Be(command.Model.PublishDate);
-            book.GenreId.Should().Be(command.Model.GenreId);
-        }                                                      
+                                                             
     }
 }
