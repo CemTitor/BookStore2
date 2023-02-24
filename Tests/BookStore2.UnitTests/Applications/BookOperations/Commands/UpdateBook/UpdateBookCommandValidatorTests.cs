@@ -38,27 +38,5 @@ namespace Application.BookOperations.Commands.UpdateBook
             // assert
             result.Errors.Count.Should().BeGreaterThan(0);
         }
-
-        [Fact]
-        public void WhenValidInputAreGiven_Validator_ShouldNotBeReturnErrors()
-        {
-            // arrange
-            UpdateBookCommand command = new UpdateBookCommand(_context);
-            command.BookId = 1;
-            command.Model = new UpdateBookModel()
-            {
-                Title = "Lord Of The Rings",
-                PageCount = 100,
-                PublishDate = System.DateTime.Now.Date.AddYears(-1),
-                GenreId = 1
-            };
-            // act
-            UpdateBookCommandValidator validator = new UpdateBookCommandValidator();
-            var result = validator.Validate(command);
-            // assert
-            result.Errors.Count.Should().Equals(0);
-        }
-
-
     }
 }

@@ -4,7 +4,7 @@ using FluentAssertions;
 using TestSetup;
 using BookStore2.Application.BookOperations.Queries.GetBookDetail;
 
-namespace Application.BookOperations.Commands.GetBookDetail
+namespace Application.BookOperations.Queries.GetBookDetail
 {
     public class GetBookDetailQueryTests : IClassFixture<CommonTestFixture>
     {
