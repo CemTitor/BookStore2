@@ -14,6 +14,7 @@ namespace TestSetup{
             Context.Database.EnsureCreated();
             Context.AddBooks();
             Context.AddGenres();
+    
             Context.SaveChanges();
 
             Mapper = new MapperConfiguration(cfg => {

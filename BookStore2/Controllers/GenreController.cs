@@ -11,11 +11,12 @@ using BookStore2.Application.GenreOperations.Queries.GetGenres;
 using BookStore2.DbOperations;
 using BookStore2.Entities;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static BookStore2.Application.GenreOperations.Queries.GetGenreDetail.GetGenreDetailQuery;
 
 namespace BookStore2.Controllers
 {
+    [Authorize]
     [ApiController] // This is a controller that will be used to handle API requests, controller actions will return an Http response
     [Route("[controller]s")] // Which controller will meet the requests coming to the WebApi is determined by these route attributes.
                              //Resource name: Genre
@@ -107,10 +108,10 @@ namespace BookStore2.Controllers
         {
             DeleteGenreCommand command = new DeleteGenreCommand(_context);
             command.GenreId = id;
-            
+
             DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
             validator.ValidateAndThrow(command);
-            
+
             command.Handle();
             return Ok();
         }

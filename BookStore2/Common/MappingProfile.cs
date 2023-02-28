@@ -5,6 +5,7 @@ using BookStore2.Application.AuthorOperations.Queries.GetAuthors;
 using BookStore2.Application.BookOperations.Commands.CreateBooks;
 using BookStore2.Application.BookOperations.Queries.GetBookDetail;
 using BookStore2.Application.BookOperations.Queries.GetBooks;
+using BookStore2.Application.UserOperations.Commands.CreateUser;
 using BookStore2.Entities;
 using static BookStore2.Application.GenreOperations.Queries.GetGenreDetail.GetGenreDetailQuery;
 using static BookStore2.Application.GenreOperations.Queries.GetGenres.GetGenresQuery;
@@ -34,6 +35,8 @@ namespace BookStoreWebApi.Common
             CreateMap<Author, AuthorDetailViewModel>();
             /// Author mapping to GetAuthorModel object
             CreateMap<Author, AuthorsViewModel>();
+
+            CreateMap<CreateUserModel, User>();
             
         }
     }

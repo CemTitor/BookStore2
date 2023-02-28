@@ -7,10 +7,12 @@ using BookStore2.Application.BookOperations.Queries.GetBooks;
 using BookStore2.DbOperations;
 using BookStore2.Entities;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore2.Controllers
 {
+    [Authorize]
     [ApiController] // This is a controller that will be used to handle API requests, controller actions will return an Http response
     [Route("[controller]s")] // Which controller will meet the requests coming to the WebApi is determined by these route attributes.
                              //Resource name: Book
